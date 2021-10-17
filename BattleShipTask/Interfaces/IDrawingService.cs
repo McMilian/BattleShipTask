@@ -7,7 +7,6 @@ namespace BattleShipTask.Interfaces
     {
         //public void DrawBattlefield(Battlefield battlefield, bool showShips);
         //public void DrawBattlefieldUsingShips(IEnumerable<Ship> shipsList, IEnumerable<Position> missedShots, bool showShips);
-        public void DrawBothBattlefieldsUsingShips(PlayersBoard myBattleField, PlayersBoard opponentsBattlefield);
-
+        public void DrawBothBattlefieldsUsingShips(PlayersBoard playersBoard, PlayersBoard opponentsBoard);
     }
 }

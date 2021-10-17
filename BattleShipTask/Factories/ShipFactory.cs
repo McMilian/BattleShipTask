@@ -1,15 +1,28 @@
-﻿using BattleShipTask.Models;
-using System;
+﻿using BattleShipTask.Interfaces;
+using BattleShipTask.Models;
+using BattleShipTask.Models.Enums;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BattleShipTask.Factories
 {
-    public class ShipFactory
+    public class ShipFactory : IShipFactory
     {
         public Ship Create(int size, Position startingPoint, bool isHorizontallyPlaced)
         {
+            var parts = new List<Field>();
+            for (int i = 0; i < size; i++)
+            {
+                if (isHorizontallyPlaced)
+                {
+                    parts.Add(new Field(new Position(startingPoint.Row, startingPoint.Column + i), FieldValue.Ship));
+                }
+                else
+                {
+                    parts.Add(new Field(new Position(startingPoint.Row + i, startingPoint.Column), FieldValue.Ship));
+                }
+            }
 
+            return new Ship(parts);
         }
     }
 }

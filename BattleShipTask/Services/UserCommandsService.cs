@@ -26,7 +26,7 @@ namespace BattleShipTask.Services
             return insertedValue;
         }
 
-        public string SetAndValidateValue(string question, Regex regex)
+        public string SetAndValidateValue(string question, Regex validationRegex)
         {
             string insertedValue;
             bool isValueCorrect;
@@ -37,7 +37,7 @@ namespace BattleShipTask.Services
 
                 insertedValue = Console.ReadLine();
 
-                isValueCorrect = regex.IsMatch(insertedValue);
+                isValueCorrect = validationRegex.IsMatch(insertedValue);
             }
             while (!isValueCorrect);
 

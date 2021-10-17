@@ -1,25 +1,35 @@
-﻿using System.Collections.Generic;
+﻿using BattleShipTask.Models.Enums;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BattleShipTask.Models
 {
     public class PlayersBoard
     {
-        //Player's number should be added?
-        public string PlayersName { get; }
         public IEnumerable<Ship> Ships { get; }
         public IList<Position> MissedShotsReceived { get; } = new List<Position>();
         public IList<Position> MissedShotsExecuted { get; } = new List<Position>();
 
-        public PlayersBoard(string name, IEnumerable<Ship> ships)
+        public PlayersBoard(IEnumerable<Ship> ships)
         {
-            PlayersName = name;
             Ships = ships;
         }
 
         public bool HasAnyUndestroyedShip()
         {
             return Ships.Any(ship => !ship.IsDestroyed);
+        }
+
+        public FieldValue? ShootingOutcome(Position shot)
+        {
+            return Ships.SelectMany(ship => ship.Parts).SingleOrDefault(x => x.Position.Row == shot.Row && x.Position.Column == shot.Column)?
+                .Content;
+        }
+
+        public Ship GetDamagedShip(Position shot)
+        {
+            return Ships.First(ship => ship.Parts.SingleOrDefault(x => x.Position.Row == shot.Row && x.Position.Column == shot.Column)?
+                    .Content == FieldValue.Ship);
         }
     }
 }

@@ -12,12 +12,6 @@ namespace BattleShipTask
                  field.Position.Column == column);
         }
 
-        public static Field GetFieldByPosition(this Battlefield battlefield, Position position)
-        {
-            return battlefield.Fields.Single(field => field.Position.Row == position.Row && //should be exception handling done
-                 field.Position.Column == position.Column);
-        }
-
         public static bool IsTrue(this string value)
         {
             return value.ToUpper() == "Y";

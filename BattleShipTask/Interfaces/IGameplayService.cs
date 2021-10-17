@@ -2,7 +2,6 @@
 {
     public interface IGameplayService
     {
-        public void StartGameOnePlayer();
-        public void StartGameTwoPlayers();
+        public void StartGame();
     }
 }

@@ -9,7 +9,6 @@ namespace BattleShipTask.Models
         public int Size { get; }
         public IEnumerable<Field> Fields { get; }
 
-
         public Battlefield(int size)
         {
             Size = size;
@@ -42,7 +41,7 @@ namespace BattleShipTask.Models
                 }
             }
 
-            return fields.All(field => field.Content == null) && fields.Count == ship.Size;
+            return fields.All(field => field.Content == null) && fields.Count == ship.Parts.Count;
         }
 
         public void InsertShip(Ship ship)
