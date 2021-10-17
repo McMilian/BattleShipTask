@@ -4,6 +4,6 @@ namespace BattleShipTask.Interfaces
 {
     public interface IPlayersBoardFactory
     {
-        PlayersBoard Create(int battlefieldSize, ShipsConfiguration shipsConfiguration, int seed);
+        PlayersBoard Create(int battlefieldSize, int seed);
     }
 }

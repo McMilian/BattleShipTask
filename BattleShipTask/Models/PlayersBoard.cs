@@ -1,6 +1,7 @@
 ﻿using BattleShipTask.Models.Enums;
 using System.Collections.Generic;
 using System.Linq;
+using BattleShipTask.Extensions;
 
 namespace BattleShipTask.Models
 {

@@ -1,8 +1,9 @@
 ﻿using BattleShipTask.Interfaces;
 using BattleShipTask.Models;
-using BattleShipTask.Models.Enums;
 using System;
 using System.Collections.Generic;
+using BattleShipTask.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace BattleShipTask.Factories
 {
@@ -10,20 +11,23 @@ namespace BattleShipTask.Factories
     {
         private readonly IShipFactory _shipFactory;
         private readonly IProbabilityGenerationService _probabilityGenerationService;
-        public PlayersBoardFactory(IShipFactory shipFactory, IProbabilityGenerationService probabilityGenerationService)
+        private readonly PlayersBoardFactoryOptions _options;
+        public PlayersBoardFactory(IShipFactory shipFactory, IProbabilityGenerationService probabilityGenerationService,
+            IOptions<PlayersBoardFactoryOptions> options)
         {
             _shipFactory = shipFactory;
             _probabilityGenerationService = probabilityGenerationService;
+            _options = options.Value;
         }
 
-        public PlayersBoard Create(int battlefieldSize, ShipsConfiguration shipsConfiguration, int seed)
+        public PlayersBoard Create(int battlefieldSize, int seed)
         {
             var battlefield = new Battlefield(battlefieldSize);
             int retries = 0;
             var shipsList = new List<Ship>();
             var randomizer = seed + 10000;
 
-            foreach (var shipConfig in shipsConfiguration.ShipSettings)
+            foreach (var shipConfig in _options.ShipSettings)
             {
                 for (var i = 0; i < shipConfig.Count; i++)
                 {
@@ -75,11 +79,14 @@ namespace BattleShipTask.Factories
         private static void SetFieldsAsWarterAroundHorizontalShip(Battlefield battlefield, ShipSetting shipConfig, int row, int column)
         {
             // zaznacz jako woda pola wokół
+
+            var waterFields = new List<Position>();
+
             if (row - 1 > 0) //upper side
             {
                 for (int i = 0; i < shipConfig.Size; i++)
                 {
-                    battlefield.GetFieldByPosition(row - 1, column + i).Content = Content.Water;
+                    waterFields.Add(new Position(row - 1, column + i));
                 }
             }
 
@@ -87,59 +94,63 @@ namespace BattleShipTask.Factories
             {
                 for (int i = 0; i < shipConfig.Size; i++)
                 {
-                    battlefield.GetFieldByPosition(row + 1, column + i).Content = Content.Water;
+                    waterFields.Add(new Position(row + 1, column + i));
                 }
             }
 
             if (column - 1 > 0) //left side
             {
-                battlefield.GetFieldByPosition(row, column - 1).Content = Content.Water;
+                waterFields.Add(new Position(row, column - 1));
             }
 
             if (column + shipConfig.Size <= battlefield.Size) // right side
             {
-                battlefield.GetFieldByPosition(row, column + shipConfig.Size).Content = Content.Water;
+                waterFields.Add(new Position(row, column + shipConfig.Size));
             }
 
             //corners
             if (row - 1 > 0 && column - 1 > 0) // upper left
             {
-                battlefield.GetFieldByPosition(row - 1, column - 1).Content = Content.Water;
+                waterFields.Add(new Position(row - 1, column - 1));
             }
 
             if (row - 1 > 0 && column + shipConfig.Size <= battlefield.Size) // upper right
             {
-                battlefield.GetFieldByPosition(row - 1, column + shipConfig.Size).Content = Content.Water;
+                waterFields.Add(new Position(row - 1, column + shipConfig.Size));
             }
 
             if (row + 1 <= battlefield.Size && column - 1 > 0) // lower left
             {
-                battlefield.GetFieldByPosition(row + 1, column - 1).Content = Content.Water;
+                waterFields.Add(new Position(row + 1, column - 1));
             }
 
             if (row + 1 <= battlefield.Size && column + shipConfig.Size <= battlefield.Size) // lower right
             {
-                battlefield.GetFieldByPosition(row + 1, column + shipConfig.Size).Content = Content.Water;
+                waterFields.Add(new Position(row + 1, column + shipConfig.Size));
             }
+
+            battlefield.InsertWater(waterFields);
         }
 
         private static void SetFieldsAsWaterAroundVerticalShip(Battlefield battlefield, ShipSetting shipConfig, int row, int column)
         {
+            var waterFields = new List<Position>();
+            
             if (row - 1 > 0) //upper side
             {
-                battlefield.GetFieldByPosition(row - 1, column).Content = Content.Water;
+                waterFields.Add(new Position(row - 1, column));
             }
 
             if (row + shipConfig.Size <= battlefield.Size) //lower side
             {
-                battlefield.GetFieldByPosition(row + shipConfig.Size, column).Content = Content.Water;
+                waterFields.Add(new Position(row + shipConfig.Size, column));
             }
 
             if (column - 1 > 0) //left side
             {
                 for (int i = 0; i < shipConfig.Size; i++)
                 {
-                    battlefield.GetFieldByPosition(row + i, column - 1).Content = Content.Water;
+                    waterFields.Add(new Position(row + i, column - 1));
                 }
             }
 
@@ -147,30 +158,32 @@ namespace BattleShipTask.Factories
             {
                 for (int i = 0; i < shipConfig.Size; i++)
                 {
-                    battlefield.GetFieldByPosition(row + i, column + 1).Content = Content.Water;
+                    waterFields.Add(new Position(row + i, column + 1));
                 }
             }
 
             //corners
             if (row - 1 > 0 && column - 1 > 0) // upper left
             {
-                battlefield.GetFieldByPosition(row - 1, column - 1).Content = Content.Water;
+                waterFields.Add(new Position(row - 1, column - 1));
             }
 
             if (row - 1 > 0 && column + 1 <= battlefield.Size) // upper right
             {
-                battlefield.GetFieldByPosition(row - 1, column + 1).Content = Content.Water;
+                waterFields.Add(new Position(row - 1, column + 1));
             }
 
             if (row + shipConfig.Size <= battlefield.Size && column - 1 > 0) // lower left
             {
-                battlefield.GetFieldByPosition(row + shipConfig.Size, column - 1).Content = Content.Water;
+                waterFields.Add(new Position(row + shipConfig.Size, column - 1));
             }
 
             if (row + shipConfig.Size <= battlefield.Size && column + 1 <= battlefield.Size) // lower right
             {
-                battlefield.GetFieldByPosition(row + shipConfig.Size, column + 1).Content = Content.Water;
+                waterFields.Add(new Position(row + shipConfig.Size, column + 1));
             }
+
+            battlefield.InsertWater(waterFields);
         }
     }
 }

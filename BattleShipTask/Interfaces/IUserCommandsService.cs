@@ -1,11 +1,10 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace BattleShipTask.Interfaces
 {
     public interface IUserCommandsService
     {
-        int SetAndValidateValue(string question, Func<int, bool> validation);
+        int SetAndValidateSeed(string question);
         string SetAndValidateValue(string question, Regex regex);
     }
 }

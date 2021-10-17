@@ -6,10 +6,12 @@ namespace BattleShipTask.Services
 {
     public class UserCommandsService : IUserCommandsService
     {
-        public int SetAndValidateValue(string question, Func<int, bool> validation)
+        private const int MinSeed = 0;
+        private const int MaxSeed = 10000;
+        public int SetAndValidateSeed(string question)
         {
             int insertedValue; 
-            bool isValueCorrect = false;
+            var isValueCorrect = false;
 
             do
             {
@@ -18,7 +20,7 @@ namespace BattleShipTask.Services
                 
                 if (int.TryParse(Console.ReadLine(), out insertedValue))
                 {
-                    isValueCorrect = validation(insertedValue);
+                    isValueCorrect = ValidateSeed(insertedValue);
                 }
             }
             while (!isValueCorrect);
@@ -35,13 +37,18 @@ namespace BattleShipTask.Services
                 Console.WriteLine();
                 Console.WriteLine(question);
 
-                insertedValue = Console.ReadLine();
+                insertedValue = Console.ReadLine() ?? string.Empty;
 
                 isValueCorrect = validationRegex.IsMatch(insertedValue);
             }
             while (!isValueCorrect);
 
             return insertedValue;
+        }
+
+        private static bool ValidateSeed(int seed)
+        {
+            return seed > MinSeed && seed <= MaxSeed;
         }
     }
 }

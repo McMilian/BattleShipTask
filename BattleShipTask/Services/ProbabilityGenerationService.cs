@@ -28,10 +28,5 @@ namespace BattleShipTask.Services
 
             return startingPosition;
         }
-        
-        public int GetRandomNumberFromRange(int minValue, int maxValue)
-        {
-            return new Random().Next(minValue, maxValue);
-        }
     }
 }

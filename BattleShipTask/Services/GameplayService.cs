@@ -4,6 +4,8 @@ using BattleShipTask.Models;
 using BattleShipTask.Models.Enums;
 using Serilog;
 using System;
+using BattleShipTask.Configuration;
+using BattleShipTask.Extensions;
 
 namespace BattleShipTask.Services
 {
@@ -12,6 +14,9 @@ namespace BattleShipTask.Services
         private readonly IPlayersBoardFactory _playersBoardFactory;
         private readonly IDrawingService _drawingService;
         private readonly IUserCommandsService _userCommandsService;
+
+        private const int SeedMultiplier = 10000;
+        private const int BoardSize = 10;
 
         public GameplayService(IDrawingService drawingService,
             IUserCommandsService userCommandsService, IPlayersBoardFactory playersBoardFactory)
@@ -25,8 +30,8 @@ namespace BattleShipTask.Services
         {
             Log.Information("Game started");
 
-            var playersSeed = _userCommandsService.SetAndValidateValue(GameConstants.InsertSeed, (seed) => seed > 0 && seed < 10001); //TODO: zrób coś z tą funkcją
-            var opponentsSeed = _userCommandsService.SetAndValidateValue(GameConstants.InsertOpponentsSeed, (seed) => seed > 0 && seed < 10001);
+            var playersSeed = _userCommandsService.SetAndValidateSeed(GameConstants.InsertSeed);
+            var opponentsSeed = _userCommandsService.SetAndValidateSeed(GameConstants.InsertOpponentsSeed);
 
             var turnAnswer = _userCommandsService.SetAndValidateValue(GameConstants.PickStartingPlayer, GameConstants.YesNoRegex);
 
@@ -34,13 +39,12 @@ namespace BattleShipTask.Services
 
             var isPlayersTurn = turnAnswer.IsTrue();
 
-            //Generate both battlefields
-            var playersBoard = _playersBoardFactory.Create(10, new ShipsConfiguration(), playersSeed); // TODO: ShipsConfiguration to be set in appsettings
-            var opponentsBoard = _playersBoardFactory.Create(10, new ShipsConfiguration(), opponentsSeed + 10000);
+            var playersBoard = _playersBoardFactory.Create(BoardSize, playersSeed);
+            var opponentsBoard = _playersBoardFactory.Create(BoardSize, opponentsSeed + SeedMultiplier);
 
             do
             {
-                _drawingService.DrawBothBattlefieldsUsingShips(playersBoard, opponentsBoard);
+                _drawingService.DrawBoards(playersBoard, opponentsBoard);
 
                 var shot = GetShotPosition(isPlayersTurn);
 
@@ -60,8 +64,6 @@ namespace BattleShipTask.Services
             while (opponentsBoard.HasAnyUndestroyedShip() && playersBoard.HasAnyUndestroyedShip());
 
             FinishGame(playersBoard.HasAnyUndestroyedShip());
-
-
         }
 
         private Position GetShotPosition(bool isPlayersTurn)
@@ -89,14 +91,7 @@ namespace BattleShipTask.Services
 
                 shotShip.DestroyShipPart(shot);
 
-                if (shotShip.IsDestroyed)
-                {
-                    Console.WriteLine(GameConstants.ShipDestroyed);
-                }
-                else
-                {
-                    Console.WriteLine(GameConstants.ShipDamaged);
-                }
+                Console.WriteLine(shotShip.IsDestroyed ? GameConstants.ShipDestroyed : GameConstants.ShipDamaged);
             }
             else
             {
@@ -115,14 +110,7 @@ namespace BattleShipTask.Services
 
         public static void FinishGame(bool isPlayerTheWinner)
         {
-            if (isPlayerTheWinner)
-            {
-                Console.WriteLine(GameConstants.PlayerWonInfo);
-            }
-            else
-            {
-                Console.WriteLine(GameConstants.PlayerLostInfo);
-            }
+            Console.WriteLine(isPlayerTheWinner ? GameConstants.PlayerWonInfo : GameConstants.PlayerLostInfo);
 
             Log.Information("Game finished. isPlayerTheWinner: {0}", isPlayerTheWinner.ToString());
         }

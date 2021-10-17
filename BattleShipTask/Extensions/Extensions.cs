@@ -1,26 +1,12 @@
-﻿using BattleShipTask.Exceptions;
-using BattleShipTask.Models;
+﻿using BattleShipTask.Models;
 using BattleShipTask.Models.Enums;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BattleShipTask
+namespace BattleShipTask.Extensions
 {
     public static class Extensions
     {
-        public static Field GetFieldByPosition(this Battlefield battlefield, int row, int column)
-        {
-            try
-            {
-                return battlefield.Fields.Single(field => field.Position.Row == row &&
-                    field.Position.Column == column);
-            }
-            catch
-            {
-                throw new BattleshipApplicationException("Field is out of Battlefield", ApplicationErrorType.ForbiddenOperation);
-            }
-        }
-
         public static void SetFieldContent(this IEnumerable<Field> fields, Position position, Content content)
         {
             fields.Single(field => field.Position.Row == position.Row && 
@@ -43,14 +29,7 @@ namespace BattleShipTask
             switch (content)
             {
                 case Content.Ship:
-                    if(showShips)
-                    {
-                        return "()";
-                    }
-                    else
-                    {
-                        return "  ";
-                    }
+                    return showShips ? "()" : "  ";
                 case Content.Wreck:
                     return "XX";
                 case Content.Water:

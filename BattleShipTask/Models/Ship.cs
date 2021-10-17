@@ -8,7 +8,7 @@ namespace BattleShipTask.Models
     public class Ship
     {
         public int HealthPoints { get; private set; }
-        public IList<Field> Parts { get; } = new List<Field>();
+        public IList<Field> Parts { get; }
 
         public bool IsDestroyed => HealthPoints == 0;
 
@@ -18,9 +18,9 @@ namespace BattleShipTask.Models
             HealthPoints = Parts.Count;
         }
 
-        public void DestroyShipPart(Position postion)
+        public void DestroyShipPart(Position position)
         {
-            var part = Parts.Single(x => x.Position.Row == postion.Row && x.Position.Column == postion.Column);
+            var part = Parts.Single(x => x.Position.Row == position.Row && x.Position.Column == position.Column);
 
             if (part is null || !part.IsShip)
             {
@@ -28,7 +28,7 @@ namespace BattleShipTask.Models
                 return;
             }
 
-            Parts.Single(x => x.Position.Row == postion.Row && x.Position.Column == postion.Column).Content = Content.Wreck;
+            Parts.Single(x => x.Position.Row == position.Row && x.Position.Column == position.Column).Content = Content.Wreck;
             HealthPoints--;
         }
     }

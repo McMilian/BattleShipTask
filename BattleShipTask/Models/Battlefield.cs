@@ -1,6 +1,7 @@
 ﻿using BattleShipTask.Models.Enums;
 using System.Collections.Generic;
 using System.Linq;
+using BattleShipTask.Extensions;
 
 namespace BattleShipTask.Models
 {
@@ -32,8 +33,7 @@ namespace BattleShipTask.Models
 
             foreach (var shipPart in ship.Parts)
             {
-                var areaToPutShip = Fields.SingleOrDefault(field => field.Position.Row == shipPart.Position.Row &&
-                 field.Position.Column == shipPart.Position.Column);
+                var areaToPutShip = Fields.SingleOrDefaultField(shipPart.Position);
 
                 if(areaToPutShip != null)
                 {
@@ -49,20 +49,14 @@ namespace BattleShipTask.Models
             foreach (var shipPart in ship.Parts)
             {
                 Fields.SetFieldContent(shipPart.Position, shipPart.Content!.Value);
-
-                //Fields.Single(field => field.Position.Row == shipPart.Position.Row &&
-                // field.Position.Column == shipPart.Position.Column).Content = shipPart.Content;
             }
         }
 
-        public void InsertWater(IEnumerable<Position> shots)
+        public void InsertWater(IEnumerable<Position> positions)
         {
-            foreach (var shot in shots)
+            foreach (var position in positions)
             {
-                Fields.SetFieldContent(shot, Content.Water);
-
-                //Fields.Single(field => field.Position.Row == shot.Row &&
-                // field.Position.Column == shot.Column).Content = Content.Water;
+                Fields.SetFieldContent(position, Content.Water);
             }
         }
     }

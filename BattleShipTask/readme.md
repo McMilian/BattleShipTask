@@ -43,7 +43,7 @@ Game consists of 4 main services which build the engine of the game:
 be placed horizontally or vertically as well as drawing starting position of the ship.
 - Drawing Service: This service draws the current situation on boards.
 
-2 Factories:
+Two Factories:
 	- Ship Factory: Service responsible for creating the ship
 	- Board Factory: Most complicated service which needs to create player's board and fill it out with the given ships configuration.
 	It needs to calculate if ship can be placed in the randomly chosen location and not to interfere with already existing ship.

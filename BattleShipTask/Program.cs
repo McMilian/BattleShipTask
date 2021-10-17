@@ -1,23 +1,28 @@
-﻿using BattleShipTask.Services;
+﻿using System;
+using System.IO;
+using BattleShipTask.Configuration;
+using BattleShipTask.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using BattleShipTask.Interfaces;
-using System;
-using BattleShipTask.Factories;
 using Serilog;
+using Microsoft.Extensions.Configuration;
 
 namespace BattleShipTask
 {
     public class Program
     {
-        static void Main(string[] args)
+        private static void Main()
         {
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetParent(AppContext.BaseDirectory).FullName)
+                .AddJsonFile("appsettings.json", false)
+                .Build();
+
+            var options = configuration.GetSection("GameSettings").Get<ApplicationOptions>();
+
             var serviceProvider = new ServiceCollection()
-                .AddScoped<IDrawingService, DrawingService>()
-                .AddScoped<IGameplayService, GameplayService>()
-                .AddScoped<IUserCommandsService, UserCommandsService>()
-                .AddScoped<IShipFactory, ShipFactory>()
-                .AddScoped<IPlayersBoardFactory, PlayersBoardFactory>()
-                .AddScoped<IProbabilityGenerationService, ProbabilityGenerationService>()
+                .AddApplicationServices()
+                .AddFactories(options)
                 .BuildServiceProvider();
 
             Log.Logger = new LoggerConfiguration()
@@ -25,30 +30,13 @@ namespace BattleShipTask
                 .WriteTo.File("..\\..\\..\\logs\\log_.txt", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
 
-            /* 1. Mechanizm losujący układ statków                                                      - DONE
-             * 2. Mechanizm rysowania statków na planszy                                                - DONE
-             * 3. Druga plansza do strzelania zakreślanie strzałów                                      - DONE     
-             * 4. Zapisywanie rozgrywki                                                                 - DONE
-             * 5. Plansza gracza 1 ze statkami == Plansza gracza 2 ze strzałami bez pokazanych statków  - DONE
-             * 6. Kierowanie grą czyli wpisywanie i odczytywanie wpisanych komend                       - DONE
-             * 7. testy                                                                                 - 90% DONE
-             * 8. logowanie                                                                             - DONE
-             * 9. obsługa błędów                                                                        
-             * 10. DI                                                                                   - DONE
-             * 11. dodaj readme z opisem                                                                - DONE
-             * 
-             * Dodatkowo upiększacze
-             * 1. Dodaj appsettingsy
-             * 5. SingleOrDefault do sprawdzenia Fielda - tu powinien być extension method
-             * 6. ShowShips w DrawingService sucks.
-             * 7. Dodaj application service extensions
-             * 8. Resharper i przejedź solucję i sprawdź czy wszystko jest ok
-             * 10. Lepszy algorytm do oznaczania wody?                                              
+            /* 1. Appsettings                                                      
+             * 2. Więcej testów                                                                           
+             * 4. logowanie błędów
              */
 
             var gameService = serviceProvider.GetService<IGameplayService>();
 
-            //gameService!.StartGameOnePlayer();
             gameService!.StartGame();
         }
     }
