@@ -19,10 +19,10 @@ namespace BattleShipTask.Test.Models
         {
             // Arrange
             var shipParts = new List<Field> {
-            new Field(new Position(4,4), FieldValue.Ship),
-            new Field(new Position(4,5), FieldValue.Ship),
-            new Field(new Position(4,6), FieldValue.Ship),
-            new Field(new Position(4,7), FieldValue.Ship)
+            new Field(new Position(4,4), Content.Ship),
+            new Field(new Position(4,5), Content.Ship),
+            new Field(new Position(4,6), Content.Ship),
+            new Field(new Position(4,7), Content.Ship)
             };
 
             var ship = _shipBuilder.WithParts(shipParts).Build();
@@ -41,11 +41,11 @@ namespace BattleShipTask.Test.Models
         {
             // Arrange
             var shipParts = new List<Field> {
-            new Field(new Position(10,7), FieldValue.Ship),
-            new Field(new Position(10,8), FieldValue.Ship),
-            new Field(new Position(10,9), FieldValue.Ship),
-            new Field(new Position(10,10), FieldValue.Ship),
-            new Field(new Position(10,11), FieldValue.Ship)
+            new Field(new Position(10,7), Content.Ship),
+            new Field(new Position(10,8), Content.Ship),
+            new Field(new Position(10,9), Content.Ship),
+            new Field(new Position(10,10), Content.Ship),
+            new Field(new Position(10,11), Content.Ship)
             };
 
             var ship = _shipBuilder.WithParts(shipParts).Build();
@@ -68,9 +68,9 @@ namespace BattleShipTask.Test.Models
             var water = new List<Position> { waterPosition };
 
             var shipParts = new List<Field> {
-            new Field(waterPosition, FieldValue.Ship),
-            new Field(new Position(6, 8), FieldValue.Ship),
-            new Field(new Position(6, 9), FieldValue.Ship)
+            new Field(waterPosition, Content.Ship),
+            new Field(new Position(6, 8), Content.Ship),
+            new Field(new Position(6, 9), Content.Ship)
             };
 
             var ship = _shipBuilder.WithParts(shipParts).Build();

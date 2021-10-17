@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using BattleShipTask.Interfaces;
 using System;
 using BattleShipTask.Factories;
+using Serilog;
 
 namespace BattleShipTask
 {
@@ -18,6 +19,12 @@ namespace BattleShipTask
                 .AddScoped<IPlayersBoardFactory, PlayersBoardFactory>()
                 .AddScoped<IProbabilityGenerationService, ProbabilityGenerationService>()
                 .BuildServiceProvider();
+
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Information()
+                .WriteTo.File("..\\..\\..\\logs\\log_.txt", rollingInterval: RollingInterval.Day)
+                .CreateLogger();
+
             /* 1. Mechanizm losujący układ statków                                                      - DONE
              * 2. Mechanizm rysowania statków na planszy                                                - DONE
              * 3. Druga plansza do strzelania zakreślanie strzałów                                      - DONE     
@@ -25,10 +32,10 @@ namespace BattleShipTask
              * 5. Plansza gracza 1 ze statkami == Plansza gracza 2 ze strzałami bez pokazanych statków  - DONE
              * 6. Kierowanie grą czyli wpisywanie i odczytywanie wpisanych komend                       - DONE
              * 7. testy                                                                                 - 90% DONE
-             * 8. logowanie
-             * 9. obsługa błędów
+             * 8. logowanie                                                                             - DONE
+             * 9. obsługa błędów                                                                        
              * 10. DI                                                                                   - DONE
-             * 11. dodaj readme z opisem
+             * 11. dodaj readme z opisem                                                                - DONE
              * 
              * Dodatkowo upiększacze
              * 1. Dodaj appsettingsy

@@ -1,5 +1,7 @@
-﻿using BattleShipTask.Models;
+﻿using BattleShipTask.Exceptions;
+using BattleShipTask.Models;
 using BattleShipTask.Models.Enums;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BattleShipTask
@@ -8,8 +10,27 @@ namespace BattleShipTask
     {
         public static Field GetFieldByPosition(this Battlefield battlefield, int row, int column)
         {
-            return battlefield.Fields.Single(field => field.Position.Row == row && //should be exception handling done
-                 field.Position.Column == column);
+            try
+            {
+                return battlefield.Fields.Single(field => field.Position.Row == row &&
+                    field.Position.Column == column);
+            }
+            catch
+            {
+                throw new BattleshipApplicationException("Field is out of Battlefield", ApplicationErrorType.ForbiddenOperation);
+            }
+        }
+
+        public static void SetFieldContent(this IEnumerable<Field> fields, Position position, Content content)
+        {
+            fields.Single(field => field.Position.Row == position.Row && 
+                field.Position.Column == position.Column).Content = content;
+        }
+
+        public static Field? SingleOrDefaultField(this IEnumerable<Field> fields, Position position)
+        {
+            return fields.SingleOrDefault(field => field.Position.Row == position.Row &&
+                field.Position.Column == position.Column);
         }
 
         public static bool IsTrue(this string value)
@@ -17,11 +38,11 @@ namespace BattleShipTask
             return value.ToUpper() == "Y";
         }
 
-        public static string Map(this FieldValue? content, bool showShips) 
+        public static string Map(this Content? content, bool showShips) 
         {
             switch (content)
             {
-                case FieldValue.Ship:
+                case Content.Ship:
                     if(showShips)
                     {
                         return "()";
@@ -30,12 +51,10 @@ namespace BattleShipTask
                     {
                         return "  ";
                     }
-                case FieldValue.Wreck:
+                case Content.Wreck:
                     return "XX";
-                case FieldValue.Water:
+                case Content.Water:
                     return "~~";
-                case FieldValue.ShotWater:
-                    return "  ";
                 default:
                     return "  ";
             }

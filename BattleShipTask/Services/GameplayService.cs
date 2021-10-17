@@ -2,6 +2,7 @@
 using BattleShipTask.Interfaces;
 using BattleShipTask.Models;
 using BattleShipTask.Models.Enums;
+using Serilog;
 using System;
 
 namespace BattleShipTask.Services
@@ -22,10 +23,14 @@ namespace BattleShipTask.Services
 
         public void StartGame()
         {
+            Log.Information("Game started");
+
             var playersSeed = _userCommandsService.SetAndValidateValue(GameConstants.InsertSeed, (seed) => seed > 0 && seed < 10001); //TODO: zrób coś z tą funkcją
             var opponentsSeed = _userCommandsService.SetAndValidateValue(GameConstants.InsertOpponentsSeed, (seed) => seed > 0 && seed < 10001);
 
             var turnAnswer = _userCommandsService.SetAndValidateValue(GameConstants.PickStartingPlayer, GameConstants.YesNoRegex);
+
+            Log.Information("Game Configuration: {0}, {1}, {2} ", playersSeed.ToString(), opponentsSeed.ToString(), turnAnswer);
 
             var isPlayersTurn = turnAnswer.IsTrue();
 
@@ -49,10 +54,14 @@ namespace BattleShipTask.Services
                 }
 
                 isPlayersTurn = !isPlayersTurn;
+
+                
             }
             while (opponentsBoard.HasAnyUndestroyedShip() && playersBoard.HasAnyUndestroyedShip());
 
             FinishGame(playersBoard.HasAnyUndestroyedShip());
+
+
         }
 
         private Position GetShotPosition(bool isPlayersTurn)
@@ -61,6 +70,8 @@ namespace BattleShipTask.Services
 
             var coordinates = _userCommandsService.SetAndValidateValue(GameConstants.InsertShotCoordinates(name), 
                 GameConstants.ShotCoordinatesRegex);
+
+            Log.Information("IsPlayersTurn: {0}, shot: {1}", isPlayersTurn.ToString(), coordinates);
 
             var row = GameConstants.AlphabetLetters.FindIndex(a => a.Contains(coordinates.Substring(0, 1).ToUpper())) + 1;
             var column = int.Parse(coordinates.Substring(1));
@@ -72,7 +83,7 @@ namespace BattleShipTask.Services
         {
             var shotField = defender.ShootingOutcome(shot);
 
-            if (shotField == FieldValue.Ship)
+            if (shotField == Content.Ship)
             {
                 var shotShip = defender.GetDamagedShip(shot);
 
@@ -89,7 +100,7 @@ namespace BattleShipTask.Services
             }
             else
             {
-                if (shotField == FieldValue.Wreck)
+                if (shotField == Content.Wreck)
                 {
                     Console.WriteLine("You shot the wreck!");
                 }
@@ -112,6 +123,8 @@ namespace BattleShipTask.Services
             {
                 Console.WriteLine(GameConstants.PlayerLostInfo);
             }
+
+            Log.Information("Game finished. isPlayerTheWinner: {0}", isPlayerTheWinner.ToString());
         }
     }
 }

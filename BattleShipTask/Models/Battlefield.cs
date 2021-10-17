@@ -48,8 +48,10 @@ namespace BattleShipTask.Models
         {
             foreach (var shipPart in ship.Parts)
             {
-                Fields.Single(field => field.Position.Row == shipPart.Position.Row &&
-                 field.Position.Column == shipPart.Position.Column).Content = shipPart.Content;
+                Fields.SetFieldContent(shipPart.Position, shipPart.Content!.Value);
+
+                //Fields.Single(field => field.Position.Row == shipPart.Position.Row &&
+                // field.Position.Column == shipPart.Position.Column).Content = shipPart.Content;
             }
         }
 
@@ -57,8 +59,10 @@ namespace BattleShipTask.Models
         {
             foreach (var shot in shots)
             {
-                Fields.Single(field => field.Position.Row == shot.Row &&
-                 field.Position.Column == shot.Column).Content = FieldValue.Water;
+                Fields.SetFieldContent(shot, Content.Water);
+
+                //Fields.Single(field => field.Position.Row == shot.Row &&
+                // field.Position.Column == shot.Column).Content = Content.Water;
             }
         }
     }

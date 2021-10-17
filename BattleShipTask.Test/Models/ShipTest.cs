@@ -18,10 +18,10 @@ namespace BattleShipTask.Test.Models
             // Arrange
             var shot = new Position(1, 1);
             var shipParts = new List<Field> {
-            new Field(shot, FieldValue.Ship),
-            new Field(new Position(1,2), FieldValue.Ship),
-            new Field(new Position(1,4), FieldValue.Ship),
-            new Field(new Position(1,4), FieldValue.Ship)
+            new Field(shot, Content.Ship),
+            new Field(new Position(1,2), Content.Ship),
+            new Field(new Position(1,4), Content.Ship),
+            new Field(new Position(1,4), Content.Ship)
             };
 
             var ship = _shipBuilder.Build();
@@ -32,7 +32,7 @@ namespace BattleShipTask.Test.Models
             // Assert
             ship.HealthPoints.Should().Be(shipParts.Count - 1);
             ship.Parts.Single(field => field.Position.Row == shot.Row && field.Position.Column == shot.Column)
-                .Content.Should().Be(FieldValue.Wreck);
+                .Content.Should().Be(Content.Wreck);
         }
     }
 }

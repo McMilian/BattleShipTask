@@ -20,16 +20,14 @@ namespace BattleShipTask.Models
             return Ships.Any(ship => !ship.IsDestroyed);
         }
 
-        public FieldValue? ShootingOutcome(Position shot)
+        public Content? ShootingOutcome(Position shot)
         {
-            return Ships.SelectMany(ship => ship.Parts).SingleOrDefault(x => x.Position.Row == shot.Row && x.Position.Column == shot.Column)?
-                .Content;
+            return Ships.SelectMany(ship => ship.Parts).SingleOrDefaultField(shot)?.Content;
         }
 
         public Ship GetDamagedShip(Position shot)
         {
-            return Ships.First(ship => ship.Parts.SingleOrDefault(x => x.Position.Row == shot.Row && x.Position.Column == shot.Column)?
-                    .Content == FieldValue.Ship);
+            return Ships.First(ship => ship.Parts.SingleOrDefaultField(shot)?.Content == Content.Ship);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BattleShipTask.Models.Enums;
+using Serilog;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,8 +20,15 @@ namespace BattleShipTask.Models
 
         public void DestroyShipPart(Position postion)
         {
-            //Tu powinien być exception handling jak nie znajdzie części
-            Parts.Single(x => x.Position.Row == postion.Row && x.Position.Column == postion.Column).Content = FieldValue.Wreck;
+            var part = Parts.Single(x => x.Position.Row == postion.Row && x.Position.Column == postion.Column);
+
+            if (part is null || !part.IsShip)
+            {
+                Log.Warning("Shot didn't hit the ship");
+                return;
+            }
+
+            Parts.Single(x => x.Position.Row == postion.Row && x.Position.Column == postion.Column).Content = Content.Wreck;
             HealthPoints--;
         }
     }

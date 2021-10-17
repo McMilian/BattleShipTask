@@ -5,14 +5,16 @@ namespace BattleShipTask.Models
     public class Field
     {
         public Position Position { get; }
-        public FieldValue? Content { get; set; }
+        public Content? Content { get; set; }
+
+        public bool IsShip => Content == Enums.Content.Ship;
 
         public Field(Position position)
         {
             Position = position;
         }
 
-        public Field(Position position, FieldValue content)
+        public Field(Position position, Content content)
         {
             Position = position;
             Content = content;

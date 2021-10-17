@@ -1,8 +1,9 @@
-﻿#Introduction
+﻿# Introduction
+
 Welcome to console application battleship game. This is the game only for two players and each player needs his/her computer to 
 play the game.
 
-#Gameplay
+# Gameplay
 
 1. At the first step you are asked to provide number from the range 1 - 10000. This number is going to be a seed variable which
 is going to be used in the randomizing algorythm to generate a position of ships in the board. Just pick your number and press enter. 
@@ -33,7 +34,8 @@ How to get the best experience from the game:
 boards from previous turns will notdisturb you.
 
 
-#Technical description
+# Technical description
+
 Game consists of 4 main services which build the engine of the game:
 - Gameplay service: There's the definition how the actual game works.
 - User Commands Service: This service's responsibility is to read and validate user's commands.

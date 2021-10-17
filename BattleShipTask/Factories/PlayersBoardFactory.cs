@@ -79,7 +79,7 @@ namespace BattleShipTask.Factories
             {
                 for (int i = 0; i < shipConfig.Size; i++)
                 {
-                    battlefield.GetFieldByPosition(row - 1, column + i).Content = FieldValue.Water;
+                    battlefield.GetFieldByPosition(row - 1, column + i).Content = Content.Water;
                 }
             }
 
@@ -87,39 +87,39 @@ namespace BattleShipTask.Factories
             {
                 for (int i = 0; i < shipConfig.Size; i++)
                 {
-                    battlefield.GetFieldByPosition(row + 1, column + i).Content = FieldValue.Water;
+                    battlefield.GetFieldByPosition(row + 1, column + i).Content = Content.Water;
                 }
             }
 
             if (column - 1 > 0) //left side
             {
-                battlefield.GetFieldByPosition(row, column - 1).Content = FieldValue.Water;
+                battlefield.GetFieldByPosition(row, column - 1).Content = Content.Water;
             }
 
             if (column + shipConfig.Size <= battlefield.Size) // right side
             {
-                battlefield.GetFieldByPosition(row, column + shipConfig.Size).Content = FieldValue.Water;
+                battlefield.GetFieldByPosition(row, column + shipConfig.Size).Content = Content.Water;
             }
 
             //corners
             if (row - 1 > 0 && column - 1 > 0) // upper left
             {
-                battlefield.GetFieldByPosition(row - 1, column - 1).Content = FieldValue.Water;
+                battlefield.GetFieldByPosition(row - 1, column - 1).Content = Content.Water;
             }
 
             if (row - 1 > 0 && column + shipConfig.Size <= battlefield.Size) // upper right
             {
-                battlefield.GetFieldByPosition(row - 1, column + shipConfig.Size).Content = FieldValue.Water;
+                battlefield.GetFieldByPosition(row - 1, column + shipConfig.Size).Content = Content.Water;
             }
 
             if (row + 1 <= battlefield.Size && column - 1 > 0) // lower left
             {
-                battlefield.GetFieldByPosition(row + 1, column - 1).Content = FieldValue.Water;
+                battlefield.GetFieldByPosition(row + 1, column - 1).Content = Content.Water;
             }
 
             if (row + 1 <= battlefield.Size && column + shipConfig.Size <= battlefield.Size) // lower right
             {
-                battlefield.GetFieldByPosition(row + 1, column + shipConfig.Size).Content = FieldValue.Water;
+                battlefield.GetFieldByPosition(row + 1, column + shipConfig.Size).Content = Content.Water;
             }
         }
 
@@ -127,19 +127,19 @@ namespace BattleShipTask.Factories
         {
             if (row - 1 > 0) //upper side
             {
-                battlefield.GetFieldByPosition(row - 1, column).Content = FieldValue.Water;
+                battlefield.GetFieldByPosition(row - 1, column).Content = Content.Water;
             }
 
             if (row + shipConfig.Size <= battlefield.Size) //lower side
             {
-                battlefield.GetFieldByPosition(row + shipConfig.Size, column).Content = FieldValue.Water;
+                battlefield.GetFieldByPosition(row + shipConfig.Size, column).Content = Content.Water;
             }
 
             if (column - 1 > 0) //left side
             {
                 for (int i = 0; i < shipConfig.Size; i++)
                 {
-                    battlefield.GetFieldByPosition(row + i, column - 1).Content = FieldValue.Water;
+                    battlefield.GetFieldByPosition(row + i, column - 1).Content = Content.Water;
                 }
             }
 
@@ -147,29 +147,29 @@ namespace BattleShipTask.Factories
             {
                 for (int i = 0; i < shipConfig.Size; i++)
                 {
-                    battlefield.GetFieldByPosition(row + i, column + 1).Content = FieldValue.Water;
+                    battlefield.GetFieldByPosition(row + i, column + 1).Content = Content.Water;
                 }
             }
 
             //corners
             if (row - 1 > 0 && column - 1 > 0) // upper left
             {
-                battlefield.GetFieldByPosition(row - 1, column - 1).Content = FieldValue.Water;
+                battlefield.GetFieldByPosition(row - 1, column - 1).Content = Content.Water;
             }
 
             if (row - 1 > 0 && column + 1 <= battlefield.Size) // upper right
             {
-                battlefield.GetFieldByPosition(row - 1, column + 1).Content = FieldValue.Water;
+                battlefield.GetFieldByPosition(row - 1, column + 1).Content = Content.Water;
             }
 
             if (row + shipConfig.Size <= battlefield.Size && column - 1 > 0) // lower left
             {
-                battlefield.GetFieldByPosition(row + shipConfig.Size, column - 1).Content = FieldValue.Water;
+                battlefield.GetFieldByPosition(row + shipConfig.Size, column - 1).Content = Content.Water;
             }
 
             if (row + shipConfig.Size <= battlefield.Size && column + 1 <= battlefield.Size) // lower right
             {
-                battlefield.GetFieldByPosition(row + shipConfig.Size, column + 1).Content = FieldValue.Water;
+                battlefield.GetFieldByPosition(row + shipConfig.Size, column + 1).Content = Content.Water;
             }
         }
     }

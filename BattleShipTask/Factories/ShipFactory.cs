@@ -14,11 +14,11 @@ namespace BattleShipTask.Factories
             {
                 if (isHorizontallyPlaced)
                 {
-                    parts.Add(new Field(new Position(startingPoint.Row, startingPoint.Column + i), FieldValue.Ship));
+                    parts.Add(new Field(new Position(startingPoint.Row, startingPoint.Column + i), Content.Ship));
                 }
                 else
                 {
-                    parts.Add(new Field(new Position(startingPoint.Row + i, startingPoint.Column), FieldValue.Ship));
+                    parts.Add(new Field(new Position(startingPoint.Row + i, startingPoint.Column), Content.Ship));
                 }
             }
 
