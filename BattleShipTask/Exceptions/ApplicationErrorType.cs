@@ -2,7 +2,7 @@
 {
     public enum ApplicationErrorType
     {
-        InvalidInput, //TODO: wykorzystać
+        InvalidInput,
         ForbiddenOperation
     }
 }

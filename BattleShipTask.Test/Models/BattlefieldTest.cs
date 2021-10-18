@@ -1,5 +1,4 @@
 ﻿using BattleShipTask.Models;
-using BattleShipTask.Models.Enums;
 using BattleShipTask.Test.Builders;
 using FluentAssertions;
 using System.Collections.Generic;
@@ -16,11 +15,11 @@ namespace BattleShipTask.Test.Models
         public void It_returns_true_if_ship_fits()
         {
             // Arrange
-            var shipParts = new List<Field> {
-            new Field(new Position(4,4), Content.Ship),
-            new Field(new Position(4,5), Content.Ship),
-            new Field(new Position(4,6), Content.Ship),
-            new Field(new Position(4,7), Content.Ship)
+            var shipParts = new List<Position> {
+            new Position(4,4),
+            new Position(4,5),
+            new Position(4,6),
+            new Position(4,7)
             };
 
             var ship = _shipBuilder.WithParts(shipParts).Build();
@@ -38,12 +37,12 @@ namespace BattleShipTask.Test.Models
         public void It_returns_false_if_ship_is_out_of_battlefield()
         {
             // Arrange
-            var shipParts = new List<Field> {
-            new Field(new Position(10,7), Content.Ship),
-            new Field(new Position(10,8), Content.Ship),
-            new Field(new Position(10,9), Content.Ship),
-            new Field(new Position(10,10), Content.Ship),
-            new Field(new Position(10,11), Content.Ship)
+            var shipParts = new List<Position> {
+            new Position(10,7),
+            new Position(10,8),
+            new Position(10,9),
+            new Position(10,10),
+            new Position(10,11)
             };
 
             var ship = _shipBuilder.WithParts(shipParts).Build();
@@ -65,10 +64,10 @@ namespace BattleShipTask.Test.Models
 
             var water = new List<Position> { waterPosition };
 
-            var shipParts = new List<Field> {
-            new Field(waterPosition, Content.Ship),
-            new Field(new Position(6, 8), Content.Ship),
-            new Field(new Position(6, 9), Content.Ship)
+            var shipParts = new List<Position> {
+            waterPosition,
+            new Position(6, 8),
+            new Position(6, 9)
             };
 
             var ship = _shipBuilder.WithParts(shipParts).Build();

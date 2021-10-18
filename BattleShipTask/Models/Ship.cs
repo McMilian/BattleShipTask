@@ -12,9 +12,9 @@ namespace BattleShipTask.Models
 
         public bool IsDestroyed => HealthPoints == 0;
 
-        public Ship(IList<Field> parts)
+        public Ship(IEnumerable<Position> parts)
         {
-            Parts = parts;
+            Parts = parts.Select(part => new Field(part, Content.Ship)).ToList();
             HealthPoints = Parts.Count;
         }
 

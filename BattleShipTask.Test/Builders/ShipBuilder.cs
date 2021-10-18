@@ -1,19 +1,18 @@
 ﻿using BattleShipTask.Models;
-using BattleShipTask.Models.Enums;
 using System.Collections.Generic;
 
 namespace BattleShipTask.Test.Builders
 {
     public class ShipBuilder
     {
-        private IList<Field> _parts = new List<Field> {
-            new Field(new Position(1,1), Content.Ship),
-            new Field(new Position(1,2), Content.Ship),
-            new Field(new Position(1,4), Content.Ship),
-            new Field(new Position(1,4), Content.Ship),
+        private IList<Position> _parts = new List<Position> {
+            new Position(1,1),
+            new Position(1,2),
+            new Position(1,4),
+            new Position(1,4)
         };
 
-        public ShipBuilder WithParts(IList<Field> parts)
+        public ShipBuilder WithParts(IList<Position> parts)
         {
             _parts = parts;
             return this; 
