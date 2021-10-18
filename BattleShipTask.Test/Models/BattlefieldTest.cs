@@ -2,17 +2,15 @@
 using BattleShipTask.Models.Enums;
 using BattleShipTask.Test.Builders;
 using FluentAssertions;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace BattleShipTask.Test.Models
 {
     public class BattlefieldTest
     {
-        private ShipBuilder _shipBuilder = new ShipBuilder();
-        private Battlefield _battlefield = new Battlefield(10);
+        private readonly ShipBuilder _shipBuilder = new ShipBuilder();
+        private readonly Battlefield _battlefield = new Battlefield(10);
 
         [Fact]
         public void It_returns_true_if_ship_fits()

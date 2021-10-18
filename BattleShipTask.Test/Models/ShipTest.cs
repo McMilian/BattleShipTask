@@ -10,7 +10,7 @@ namespace BattleShipTask.Test.Models
 {
     public class ShipTest
     {
-        private ShipBuilder _shipBuilder = new ShipBuilder();
+        private readonly ShipBuilder _shipBuilder = new ShipBuilder();
 
         [Fact]
         public void It_destroys_ship_part()

@@ -14,21 +14,20 @@ namespace BattleShipTask.Test.Factories
         public void Create_horizontally_placed_ship()
         {
             // Arrange
-            var size = 5;
-            var startingRow = 3;
-            var startingColumn = 5;
+            const int size = 5;
+            const int startingRow = 3;
+            const int startingColumn = 5;
             var startingPoint = new Position(startingRow, startingColumn);
-            var isHorizontallyPlaced = true;
 
             // Act
-            var result = _sut.Create(size, startingPoint, isHorizontallyPlaced);
+            var result = _sut.Create(size, startingPoint, true);
 
             // Assert
             result.HealthPoints.Should().Be(size);
             result.Parts.Should().HaveCount(size);
             result.Parts.Should().OnlyContain(field => field.Position.Row == startingRow);
 
-            for (int i = startingColumn; i < size -1 ; i++)
+            for (var i = startingColumn; i < startingColumn + size - 1 ; i++)
             {
                 result.Parts.Should().Contain(field => field.Position.Column == i);
             }
@@ -42,17 +41,16 @@ namespace BattleShipTask.Test.Factories
             var startingRow = 2;
             var startingColumn = 8;
             var startingPoint = new Position(startingRow, startingColumn);
-            var isHorizontallyPlaced = false;
 
             // Act
-            var result = _sut.Create(size, startingPoint, isHorizontallyPlaced);
+            var result = _sut.Create(size, startingPoint, false);
 
             // Assert
             result.HealthPoints.Should().Be(size);
             result.Parts.Should().HaveCount(size);
             result.Parts.Should().OnlyContain(field => field.Position.Column == startingColumn);
 
-            for (int i = startingColumn; i < size - 1; i++)
+            for (int i = startingColumn; i < startingRow + size - 1; i++)
             {
                 result.Parts.Should().Contain(field => field.Position.Row == i);
             }

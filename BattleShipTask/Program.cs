@@ -42,12 +42,14 @@ namespace BattleShipTask
             {
                 Console.WriteLine(GameConstants.ApplicationException);
                 Console.WriteLine(ex.Message);
+
                 Log.Error("ErrorType: {0} \r\n ErrorMessage: {1} \r\n StackTrace: {2}", ex.Type, 
                     ex.Message, ex.StackTrace);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(GameConstants.ApplicationException);
+
                 Log.Error("ErrorMessage: {0} \r\n StackTrace: {1}", ex.Message, 
                     ex.StackTrace);
             }
