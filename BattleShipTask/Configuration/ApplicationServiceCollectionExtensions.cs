@@ -1,11 +1,9 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using BattleShipTask.Configuration;
-using BattleShipTask.Factories;
+﻿using BattleShipTask.Factories;
 using BattleShipTask.Interfaces;
 using BattleShipTask.Services;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BattleShipTask.Extensions
+namespace BattleShipTask.Configuration
 {
     public static class ApplicationServiceCollectionExtensions
     {
@@ -27,6 +25,7 @@ namespace BattleShipTask.Extensions
             services.Configure<PlayersBoardFactoryOptions>(o =>
             {
                 o.ShipSettings = options.ShipsConfiguration.ShipSettings;
+                o.MaxRetries = options.MaxNumberOfRandomTries;
             });
 
             return services;

@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using BattleShipTask.Models;
+﻿using System.Collections.Generic;
 
 namespace BattleShipTask.Configuration
 {
     public class ApplicationOptions
     {
         public ShipsConfiguration ShipsConfiguration { get; set; } = new ShipsConfiguration();
+        public int MaxNumberOfRandomTries { get; set; }
     }
 
     public sealed class ShipsConfiguration 

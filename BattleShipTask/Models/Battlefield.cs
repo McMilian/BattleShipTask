@@ -16,9 +16,9 @@ namespace BattleShipTask.Models
 
             var fields = new List<Field>();
 
-            for (int i = 1; i <= size; i++)
+            for (var i = 1; i <= size; i++)
             {
-                for (int j = 1; j <= size; j++)
+                for (var j = 1; j <= size; j++)
                 {
                     fields.Add(new Field(new Position(i, j)));
                 }

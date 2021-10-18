@@ -4,7 +4,6 @@ using BattleShipTask.Models;
 using BattleShipTask.Models.Enums;
 using Serilog;
 using System;
-using BattleShipTask.Configuration;
 using BattleShipTask.Extensions;
 
 namespace BattleShipTask.Services
@@ -81,7 +80,7 @@ namespace BattleShipTask.Services
             return new Position(row, column);
         }
 
-        private void ExecuteShooting(PlayersBoard shooter, PlayersBoard defender, Position shot)
+        private static void ExecuteShooting(PlayersBoard shooter, PlayersBoard defender, Position shot)
         {
             var shotField = defender.ShootingOutcome(shot);
 

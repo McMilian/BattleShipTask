@@ -30,5 +30,8 @@ namespace BattleShipTask.Constants
 
         public static Regex ShotCoordinatesRegex { get; } = new Regex(@"^[a-jA-J]0?([1-9]|10)$");
         public static Regex YesNoRegex { get; } = new Regex(@"^[y|n]$");
+
+        public const string ApplicationException = "****************************** \r\n I'm sorry, but application exception occured \r\n******************************";
+        public const string UnhandledException = "****************************** \r\n I'm sorry, but fatal unhandled exception occured \r\n******************************";
     }
 }

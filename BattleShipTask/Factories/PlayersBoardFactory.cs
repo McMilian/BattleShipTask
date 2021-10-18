@@ -1,9 +1,9 @@
 ﻿using BattleShipTask.Interfaces;
 using BattleShipTask.Models;
-using System;
 using System.Collections.Generic;
 using BattleShipTask.Configuration;
 using Microsoft.Extensions.Options;
+using BattleShipTask.Exceptions;
 
 namespace BattleShipTask.Factories
 {
@@ -12,6 +12,7 @@ namespace BattleShipTask.Factories
         private readonly IShipFactory _shipFactory;
         private readonly IProbabilityGenerationService _probabilityGenerationService;
         private readonly PlayersBoardFactoryOptions _options;
+
         public PlayersBoardFactory(IShipFactory shipFactory, IProbabilityGenerationService probabilityGenerationService,
             IOptions<PlayersBoardFactoryOptions> options)
         {
@@ -29,6 +30,11 @@ namespace BattleShipTask.Factories
 
             foreach (var shipConfig in _options.ShipSettings)
             {
+                if (shipConfig.Size > battlefield.Size)
+                {
+                    throw new BattleshipApplicationException("Ship size in configuration exceeds battlefield size.", ApplicationErrorType.InvalidInput);
+                }
+
                 for (var i = 0; i < shipConfig.Count; i++)
                 {
                     bool anotherDraw = true;
@@ -36,6 +42,7 @@ namespace BattleShipTask.Factories
                     do
                     {
                         var isHorizontal = _probabilityGenerationService.CoinFlip(randomizer);
+
                         var startingPosition = _probabilityGenerationService.GetRandomStartingPosition(randomizer, 
                             isHorizontal, shipConfig.Size, battlefieldSize);
 
@@ -49,11 +56,13 @@ namespace BattleShipTask.Factories
 
                             if (isHorizontal)
                             {
-                                SetFieldsAsWarterAroundHorizontalShip(battlefield, shipConfig, startingPosition.Row, startingPosition.Column);
+                                SetFieldsAsWaterAroundHorizontalShip(battlefield, shipConfig, startingPosition.Row, 
+                                    startingPosition.Column);
                             }
                             else
                             {
-                                SetFieldsAsWaterAroundVerticalShip(battlefield, shipConfig, startingPosition.Row, startingPosition.Column);
+                                SetFieldsAsWaterAroundVerticalShip(battlefield, shipConfig, startingPosition.Row, 
+                                    startingPosition.Column);
                             }
 
                             shipsList.Add(ship);
@@ -62,6 +71,12 @@ namespace BattleShipTask.Factories
                         }
                         else
                         {
+                            if (retries > _options.MaxRetries)
+                            {
+                                throw new BattleshipApplicationException("Ship Configuration impossible to fit battlefield, " +
+                                    "decrease number of ships.", ApplicationErrorType.InvalidInput);
+                            }
+
                             retries++;
                         }
                         randomizer += seed;
@@ -70,16 +85,12 @@ namespace BattleShipTask.Factories
                 }
             }
 
-            Console.WriteLine($"There were {retries} retries in drawing"); //TODO do wywalenia 
-            Console.WriteLine($"Finished at randomizer {randomizer}");
-
             return new PlayersBoard(shipsList);
         }
 
-        private static void SetFieldsAsWarterAroundHorizontalShip(Battlefield battlefield, ShipSetting shipConfig, int row, int column)
+        private static void SetFieldsAsWaterAroundHorizontalShip(Battlefield battlefield, ShipSetting shipConfig, int row, 
+            int column)
         {
-            // zaznacz jako woda pola wokół
-
             var waterFields = new List<Position>();
 
             if (row - 1 > 0) //upper side
@@ -132,7 +143,8 @@ namespace BattleShipTask.Factories
             battlefield.InsertWater(waterFields);
         }
 
-        private static void SetFieldsAsWaterAroundVerticalShip(Battlefield battlefield, ShipSetting shipConfig, int row, int column)
+        private static void SetFieldsAsWaterAroundVerticalShip(Battlefield battlefield, ShipSetting shipConfig, 
+            int row, int column)
         {
             var waterFields = new List<Position>();
             
