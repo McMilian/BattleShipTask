@@ -4,11 +4,11 @@
     {
         public const string GameIntro =
             "       __                        __                 \r\n      )_)  _  _)_ _)_  )   _   (_ ` ( _  o   _   _ \r\n     /__) (_( (_  (_  (   )_) .__)   ) ) (  )_) (  \r\n                         (_                (    _) \r\n \r\n \r\n Press enter to start the game.";
-        public const string ShipDamaged = "Ship has been damaged!";
+        public const string ShipDamaged = "\n Ship has been damaged! \n";
 
-        public const string ShipDestroyed = "Ship has been destroyed!";
+        public const string ShipDestroyed = "\n Ship has been destroyed! \n";
 
-        public const string ShotMissed = "Shot missed the target!";
+        public const string ShotMissed = "\n Shot missed the target! \n";
 
         public const string YouLost =
             "\r\n      __   __                    _                     _   \r\n      \\ \\ / /   ___    _   _    | |       ___    ___  | |_ \r\n       \\ V /   / _ \\  | | | |   | |      / _ \\  / __| | __|\r\n        | |   | (_) | | |_| |   | |___  | (_) | \\__ \\ | |_ \r\n        |_|    \\___/   \\__,_|   |_____|  \\___/  |___/  \\__|\r\n ";
@@ -20,12 +20,13 @@
 
         public const string PlayerLostInfo = "All your ships have been destoryed. Game Over";
 
-        public const string InsertSeed = "Choose randomizing seed for ships generation. Pick number from range 1 - 10000. \n" +
-                                         "Remember the number and provide it to your opponent";
+        public const string InsertSeed = "Choose randomizing seed for YOUR ships generation. Pick number from range 1 - 10000. Press enter and provide \n" +
+                                         "the number to your opponent";
 
-        public const string InsertOpponentsSeed = "Insert opponents chosen number. Number must be exactly the same which opponent inserted.";
+        public const string InsertOpponentsSeed = "Insert OPPONENT'S chosen number. Number must be exactly the same \n" +
+                                                  "which opponent inserted in his/her first question.";
 
-        public const string PickStartingPlayer = "Agree with the opponent who shots first. If you start then type 'y' if opponent starts type 'n'.";
+        public const string PickStartingPlayer = "Agree with the opponent who shoots first. If you start then type 'y' if opponent starts type 'n'.";
 
         public const string ApplicationException = "****************************** \r\n I'm sorry, but application exception occured \r\n******************************";
         
