@@ -3,7 +3,7 @@
     public class GameTexts
     {
         public const string GameIntro =
-            "       __                        __                 \r\n      )_)  _  _)_ _)_  )   _   (_ ` ( _  o   _   _ \r\n     /__) (_( (_  (_  (   )_) .__)   ) ) (  )_) (  \r\n                         (_                (    _) \r\n \r\n \r\n Press enter to start the game.";
+            "      __                        __                 \r\n      )_)  _  _)_ _)_  )   _   (_ ` ( _  o   _   _ \r\n     /__) (_( (_  (_  (   )_) .__)   ) ) (  )_) (  \r\n                         (_                (    _) \r\n \r\n \r\n Press enter to start the game.";
         public const string ShipDamaged = "\n Ship has been damaged! \n";
 
         public const string ShipDestroyed = "\n Ship has been destroyed! \n";
