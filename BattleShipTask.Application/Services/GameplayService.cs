@@ -15,7 +15,6 @@ namespace BattleShipTask.Application.Services
         private readonly IUserCommandsService _userCommandsService;
         private readonly IConsoleWrappingService _console;
 
-        private const int SeedMultiplier = 10000;
         private const int BoardSize = 10;
 
         public GameplayService(IDrawingService drawingService,
@@ -44,7 +43,7 @@ namespace BattleShipTask.Application.Services
             var isPlayersTurn = turnAnswer.IsTrue();
 
             var playersBoard = _playersBoardFactory.Create(BoardSize, playersSeed);
-            var opponentsBoard = _playersBoardFactory.Create(BoardSize, opponentsSeed + SeedMultiplier);
+            var opponentsBoard = _playersBoardFactory.Create(BoardSize, opponentsSeed);
 
             do
             {
