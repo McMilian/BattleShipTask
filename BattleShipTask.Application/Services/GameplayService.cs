@@ -32,6 +32,8 @@ namespace BattleShipTask.Application.Services
         {
             Log.Information("Game started");
 
+            ShowIntro();
+
             var playersSeed = _userCommandsService.SetAndValidateSeed(GameTexts.InsertSeed);
             var opponentsSeed = _userCommandsService.SetAndValidateSeed(GameTexts.InsertOpponentsSeed);
 
@@ -66,6 +68,12 @@ namespace BattleShipTask.Application.Services
             while (opponentsBoard.HasAnyUndestroyedShip() && playersBoard.HasAnyUndestroyedShip());
 
             FinishGame(playersBoard.HasAnyUndestroyedShip());
+        }
+
+        private void ShowIntro()
+        {
+            _console.WriteLine(GameTexts.GameIntro);
+            _console.ReadLine();
         }
 
         private Position GetShotPosition(bool isPlayersTurn)
@@ -112,7 +120,16 @@ namespace BattleShipTask.Application.Services
 
         public void FinishGame(bool isPlayerTheWinner)
         {
-            _console.WriteLine(isPlayerTheWinner ? GameTexts.PlayerWonInfo : GameTexts.PlayerLostInfo);
+            if(isPlayerTheWinner)
+            {
+                _console.WriteLine(GameTexts.YouWon);
+                _console.WriteLine(GameTexts.PlayerWonInfo);
+            } 
+            else
+            {
+                _console.WriteLine(GameTexts.YouLost);
+                _console.WriteLine(GameTexts.PlayerLostInfo);
+            }
 
             Log.Information("Game finished. isPlayerTheWinner: {0}", isPlayerTheWinner.ToString());
         }
