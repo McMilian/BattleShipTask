@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleShipTask", "BattleShipTask\BattleShipTask.csproj", "{9F0FDBA2-1BD2-42A8-95AB-DF015661C127}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BattleShipTask.Application", "BattleShipTask.Application\BattleShipTask.Application.csproj", "{9F0FDBA2-1BD2-42A8-95AB-DF015661C127}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleShipTask.Test", "BattleShipTask.Test\BattleShipTask.Test.csproj", "{0E4367AF-D78B-46CD-9D8E-F0695CD1C788}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BattleShipTask.Test", "BattleShipTask.Test\BattleShipTask.Test.csproj", "{0E4367AF-D78B-46CD-9D8E-F0695CD1C788}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BattleShipTask.Infrastructure", "BattleShipTask.Infrastructure\BattleShipTask.Infrastructure.csproj", "{4DC88156-12F0-4FF7-88F9-AA3E5F2A4996}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{0E4367AF-D78B-46CD-9D8E-F0695CD1C788}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E4367AF-D78B-46CD-9D8E-F0695CD1C788}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E4367AF-D78B-46CD-9D8E-F0695CD1C788}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DC88156-12F0-4FF7-88F9-AA3E5F2A4996}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DC88156-12F0-4FF7-88F9-AA3E5F2A4996}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DC88156-12F0-4FF7-88F9-AA3E5F2A4996}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DC88156-12F0-4FF7-88F9-AA3E5F2A4996}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

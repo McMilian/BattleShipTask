@@ -1,15 +1,15 @@
-﻿using BattleShipTask.Models;
-using BattleShipTask.Test.Builders;
+﻿using BattleShipTask.Test.Builders;
 using FluentAssertions;
 using System.Collections.Generic;
+using BattleShipTask.Application.Models;
 using Xunit;
 
 namespace BattleShipTask.Test.Models
 {
     public class BattlefieldTest
     {
-        private readonly ShipBuilder _shipBuilder = new ShipBuilder();
-        private readonly Battlefield _battlefield = new Battlefield(10);
+        private readonly ShipBuilder _shipBuilder = new();
+        private readonly Battlefield _battlefield = new(10);
 
         [Fact]
         public void It_returns_true_if_ship_fits()

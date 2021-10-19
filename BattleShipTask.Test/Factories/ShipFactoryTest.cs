@@ -1,6 +1,6 @@
-﻿using BattleShipTask.Factories;
-using BattleShipTask.Interfaces;
-using BattleShipTask.Models;
+﻿using BattleShipTask.Application.Factories;
+using BattleShipTask.Application.Interfaces;
+using BattleShipTask.Application.Models;
 using FluentAssertions;
 using Xunit;
 

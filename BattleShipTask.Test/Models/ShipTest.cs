@@ -1,16 +1,16 @@
-﻿using BattleShipTask.Models;
-using BattleShipTask.Models.Enums;
-using BattleShipTask.Test.Builders;
+﻿using BattleShipTask.Test.Builders;
 using FluentAssertions;
 using System.Collections.Generic;
 using System.Linq;
+using BattleShipTask.Application.Models;
+using BattleShipTask.Application.Models.Enums;
 using Xunit;
 
 namespace BattleShipTask.Test.Models
 {
     public class ShipTest
     {
-        private readonly ShipBuilder _shipBuilder = new ShipBuilder();
+        private readonly ShipBuilder _shipBuilder = new();
 
         [Fact]
         public void It_destroys_ship_part()
