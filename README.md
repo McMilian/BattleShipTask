@@ -1,6 +1,6 @@
 # Introduction
 
-Welcome to console application battleship game. This is the game only for two players and each player needs his/her computer to 
+Welcome to console application battleship game written in .NET 5.0 framework. This is the game only for two players and each player needs his/her computer to 
 play the game.
 
 # Gameplay
