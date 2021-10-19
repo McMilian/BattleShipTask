@@ -107,7 +107,7 @@ namespace BattleShipTask.Application.Services
             {
                 if (shotField == Content.Wreck)
                 {
-                    _console.WriteLine("You shot the wreck!");
+                    _console.WriteLine(GameTexts.ShotIntoWreck);
                 }
                 else
                 {

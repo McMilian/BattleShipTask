@@ -9,6 +9,7 @@
         public const string ShipDestroyed = "\n Ship has been destroyed! \n";
 
         public const string ShotMissed = "\n Shot missed the target! \n";
+        public const string ShotIntoWreck = "\n You shot the wreck! \n";
 
         public const string YouLost =
             "\r\n      __   __                    _                     _   \r\n      \\ \\ / /   ___    _   _    | |       ___    ___  | |_ \r\n       \\ V /   / _ \\  | | | |   | |      / _ \\  / __| | __|\r\n        | |   | (_) | | |_| |   | |___  | (_) | \\__ \\ | |_ \r\n        |_|    \\___/   \\__,_|   |_____|  \\___/  |___/  \\__|\r\n ";
