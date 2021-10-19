@@ -21,7 +21,6 @@ right-hand side. It's empty at the beginning. Ship's parts are marked as () in t
 5. Game starts. Player who was agreed to start picks the shot coordinates inserting string in format for example 'C5' 
 (which is shootto third row and fifth column) or 'H7' (which means eighth row and seventh column). Player is obliged to read
 loud the coordinates of the shot so that opponent at the same time can input received shot.
-
 When you hit opponents ship it will be shown as 'XX' if you miss then water is marked as '~~'.
 
 6. Players input their shot coordinates and opponents shot coordinates as game progresses.
@@ -58,3 +57,10 @@ Main Models:
 - Battlefield - this model is used to manage the process of generation the ships' location
 - Position - describes coordinate
 - Field - contains given position and its content
+
+# Appsetting - how to tweak game (be cautious)
+There are a few game options:
+ - ShowOpponentsShips - this is technical boolean option which lets you see opponents ships (for UAT test purpose)
+ - ShipsSettings - array which let's user to set how many ships of which size should be generated
+ - MaxNumberOfRandomTries - this technical int option states after how many random tries of generation the ships in battlefield process
+ should be stopped and exception thrown (for example if user specifies too many ships in the ShipsSettings array).
