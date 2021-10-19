@@ -6,7 +6,8 @@ play the game.
 # Gameplay
 
 1. At the first step you are asked to provide number from the range 1 - 10000. This number is going to be a seed variable which
-is going to be used in the randomizing algorythm to generate a position of ships in the board. Just pick your number and press enter. 
+is going to be used in the randomizing algorythm to generate a position of ships in the board. Just pick your number and press enter.
+In case of wrong input command will be repeated.
 
 2. As you and your opponent picked the number, then exchange this information with each other and provide opponent's number in the
 second question (your opponent in the second question provides your number).
