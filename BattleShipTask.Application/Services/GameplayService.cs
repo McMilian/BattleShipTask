@@ -130,6 +130,7 @@ namespace BattleShipTask.Application.Services
                 _console.WriteLine(GameTexts.PlayerLostInfo);
             }
 
+            _console.ReadLine();
             Log.Information("Game finished. isPlayerTheWinner: {0}", isPlayerTheWinner.ToString());
         }
     }
